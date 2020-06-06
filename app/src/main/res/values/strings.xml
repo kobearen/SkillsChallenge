@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Skills Challenge</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="blank_fragment">Hello blank fragment Hello</string>
+    <string name="webView_fragment_button">button fragment_button</string>
+
 </resources>

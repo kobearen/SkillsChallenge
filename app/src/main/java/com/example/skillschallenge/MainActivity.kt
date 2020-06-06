@@ -29,11 +29,18 @@ class MainActivity : AppCompatActivity() {
 
 //        loadWebpage()
 
-        button.setOnClickListener {
              // SharedPreferencesの練習
 //            sp.edit().putString("DataString", "sample")
 
 //            startActivity(share)
+
+        // Fragmentの練習
+
+        fragmentbutton.setOnClickListener{
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_layout, WebViewFragment.createInstance())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         readButton.setOnClickListener {
