@@ -13,14 +13,20 @@
         <TextView
             android:id="@+id/top_text"
             android:layout_width="match_parent"
-            android:layout_height="331dp"
+            android:layout_height="200dp"
             android:text="@string/blank_fragment"
             android:gravity="center"/>
 
         <Button
             android:id="@+id/top_button"
             android:layout_width="match_parent"
-            android:layout_height="331dp"
+            android:layout_height="200dp"
             android:text="@string/webView_fragment_button" />
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
     </LinearLayout>
 </FrameLayout>
