@@ -99,6 +99,18 @@ class MainActivity : AppCompatActivity() {
 //            builder.setType("text/plain")
 //            builder.startChooser()
         }
+        var sheepCount = 0
+        changeImageButton.setOnClickListener{
+
+            sheepCount++
+            val sheepText = "ひつじが$sheepCount 匹"
+            sheepTextView.text = sheepText
+
+            when(sheepCount % 2) {
+                0 -> imageView1.setImageResource(R.drawable.sheep1)
+                else -> imageView1.setImageResource(R.drawable.sheep2)
+            }
+        }
     }
 
     fun loadWebpage() {
