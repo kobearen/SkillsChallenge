@@ -4,7 +4,6 @@ package com.example.skillschallenge
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -24,16 +23,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // webViewの練習
-//        webView.loadUrl("hhttps://www.google.com/")
-
-//        loadWebpage()
+        apiButton.setOnClickListener {
+            resultApiText.text = ""
+            HitAPITask().execute("https://api.punkapi.com/v2/beers](https://api.punkapi.com/v2/beers")
+        }
 
         button.setOnClickListener {
-             // SharedPreferencesの練習
-//            sp.edit().putString("DataString", "sample")
 
-//            startActivity(share)
         }
 
         readButton.setOnClickListener {
@@ -63,39 +59,97 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.startActivityForResult(this, sendIntent, 0, null)
             }
 
+        }
+        // webViewの練習
+//        webView.loadUrl("hhttps://www.google.com/")
+//        loadWebpage()
+        // SharedPreferencesの練習
+//            sp.edit().putString("DataString", "sample")
+//            startActivity(share)
+    }
 
-//            startActivity(shareIntent)
 
+    // ここからのエラーが解決できない状況です　2020/08/25
+    inner class HitAPITask: AsynkTask<String, String, String>(){
 
+        override fun doInBackground(vararg params: String?): String? {
+            //ここでAPIを叩きます。バックグラウンドで処理する内容です。
+            var connection: HttpURLConnection? = null
+            var reader: BufferedReader? = null
+            val buffer: StringBuffer
 
-//            val builder = ShareCompat.IntentBuilder.from(this)
-//
-//            builder.setSubject("件名けんめいケンメイ")
-//            builder.setText("今なら、アプリをインストールして、会員登録(無料)すると、お友だち紹介スタンプ"
-//                        + "個プレゼント中！" + "\n"
-////                    + R.string.share_invitation_bodypresent + "\n"
-//                        + "さらに、"
-//                        + "までにジョイフル店舗にご来店頂き、来店スタンプをGETすると、招待してくれたお友達も紹介スタンプがGETできます。" + "\n"
-//                        + "招待リンク期限:"
-//                        + "23:59まで" + "\n"
-////                    + R.string.share_invitation_bodylast + "\n"
-//                        + "https://joyfullinvite.page.link?inviter_id=[id]&hash=[hash]"
-//            )
-//
-////            {   "title":"お得な友だち紹介スタンプ!",
-////                "description":"ジョイフルアプリの招待状♪今ならJSONきれい",
-////                "hash_tag":"#テスト",
-////                "invitee_expire_at":"2020-05-01 00:00:00",
-////                "invitee_point":10
-////                }
-//
-//            builder.setType("text/plain")
-//            builder.startChooser()
+            try {
+                //param[0]にはAPIのURI(String)を入れます(後ほど)。
+                //AsynkTask<...>の一つめがStringな理由はURIをStringで指定するからです。
+                val url = URL(params[0])
+                connection = url.openConnection() as HttpURLConnection
+                connection.connect()  //ここで指定したAPIを叩いてみてます。
+
+                //ここから叩いたAPIから帰ってきたデータを使えるよう処理していきます。
+
+                //とりあえず取得した文字をbufferに。
+                val stream = connection.inputStream
+                reader = BufferedReader(InputStreamReader(stream))
+                buffer = StringBuffer()
+                var line: String?
+                while (true) {
+                    line = reader.readLine()
+                    if (line == null) {
+                        break
+                    }
+                    buffer.append(line)
+                    //Log.d("CHECK", buffer.toString())
+                }
+
+                //ここからは、今回はJSONなので、いわゆるJsonをParseする作業（Jsonの中の一つ一つのデータを取るような感じ）をしていきます。
+
+                //先ほどbufferに入れた、取得した文字列
+                val jsonText = buffer.toString()
+
+                //JSONObjectを使って、まず全体のJSONObjectを取ります。
+                val parentJsonObj = JSONObject(jsonText)
+                //今回のJSONは配列になっているので（データは一つですが）、全体のJSONObjectから、getJSONArrayで配列"movies"を取ります。
+                val parentJsonArray = parentJsonObj.getJSONArray("movies")
+
+                //JSONArrayの中身を取ります。映画"Your Name"のデータは、配列"movies"の０番目のデータなので、
+                val detailJsonObj = parentJsonArray.getJSONObject(0)  //これもJSONObjectとして取得
+
+                //moviesの0番目のデータのtitle項目をStringで取ります。これで中身を取れました。
+                val movieName: String = detailJsonObj.getString("title")  // => Your Name.
+                //公開年を取りたい時も同じようにすれば良いです。
+                val year: Int = detailJsonObj.getInt("year")  // => 2016
+
+                //Stringでreturnしてあげましょう。
+                return "$movieName - $year"  // => Your Name. - 2016
+
+                //ここから下は、接続エラーとかJSONのエラーとかで失敗した時にエラーを処理する為のものです。
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+            //finallyで接続を切断してあげましょう。
+            finally {
+                connection?.disconnect()
+                try {
+                    reader?.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+            //失敗した時はnullやエラーコードなどを返しましょう。
+            return null
         }
     }
 
-    fun loadWebpage() {
+    //返ってきたデータをビューに反映させる処理はonPostExecuteに書きます。これはメインスレッドです。
+    override fun onPostExecute(result: String?) {
+        super.onPostExecute(result)
+        if(result == null) return
 
+        resultApiText.text = result
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -113,47 +167,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-// listViewの練習
-//        val arrayAdapter = ArrayAdapter<String>(this, R.layout.simple_list_item_1).apply {
-//            add("Android")
-//            add("iOS")
-//            add("Windows")
-//            add("macOS")
-//            add("Unix")
-//            add("+") // 追加
-//        }
-
-//        val listView : ListView = findViewById(R.id.listView)
-//        listView.adapter = arrayAdapter
-//
-//        // 項目をタップしたときの処理
-//        listView.setOnItemClickListener {parent, view, position, id ->
-//
-//            // 項目の TextView を取得
-//            val itemTextView : TextView = view.findViewById(android.R.id.text1)
-//
-//            // 項目のラベルテキストをログに表示
-//            Log.i("debug", itemTextView.text.toString())
-//
-//            // 一番下の項目をタップしたら新しい項目をその項目の上に追加
-//            if (position == arrayAdapter.count - 1) {
-//                arrayAdapter.insert("New Item " + arrayAdapter.count, arrayAdapter.count - 1)
-//                arrayAdapter.notifyDataSetChanged()
-//            }
-//        }
-
-//        // 項目を長押ししたときの処理
-//        listView.setOnItemLongClickListener { parent, view, position, id ->
-//
-//            // 一番下の項目以外は長押しで削除
-//            if (position == arrayAdapter.count - 1) {
-//                return@setOnItemLongClickListener false
-//            }
-//
-//            arrayAdapter.remove(arrayAdapter.getItem(position))
-//            arrayAdapter.notifyDataSetChanged()
-//
-//            return@setOnItemLongClickListener true
-//        }
-
-//        val sp = PreferenceManager.getDefaultSharedPreferences(null)

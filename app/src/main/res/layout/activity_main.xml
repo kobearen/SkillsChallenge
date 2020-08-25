@@ -19,10 +19,16 @@
             android:text="Button" />
 
         <TextView
+            android:id="@+id/resultApiText"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:text="困!"
             android:textSize="40sp" />
+        <Button
+            android:id="@+id/apiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="API" />
 
         <Button
             android:id="@+id/readButton"
