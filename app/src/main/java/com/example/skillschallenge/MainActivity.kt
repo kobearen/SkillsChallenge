@@ -11,11 +11,6 @@ import androidx.core.app.ShareCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
 
@@ -25,7 +20,27 @@ class MainActivity : AppCompatActivity() {
 
         apiButton.setOnClickListener {
             resultApiText.text = ""
-            HitAPITask().execute("https://api.punkapi.com/v2/beers](https://api.punkapi.com/v2/beers")
+            val gson = GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create() //
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://randomuser.me")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+
+
+            val client = retrofit.create(Client::class.java)
+            client.getUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("suyaa", it.toString())
+                }, {
+                    Log.d("suyaa", it.toString())
+                })
+        }
         }
 
         button.setOnClickListener {
@@ -67,103 +82,4 @@ class MainActivity : AppCompatActivity() {
 //            sp.edit().putString("DataString", "sample")
 //            startActivity(share)
     }
-
-
-    // ここからのエラーが解決できない状況です　2020/08/25
-    inner class HitAPITask: AsynkTask<String, String, String>(){
-
-        override fun doInBackground(vararg params: String?): String? {
-            //ここでAPIを叩きます。バックグラウンドで処理する内容です。
-            var connection: HttpURLConnection? = null
-            var reader: BufferedReader? = null
-            val buffer: StringBuffer
-
-            try {
-                //param[0]にはAPIのURI(String)を入れます(後ほど)。
-                //AsynkTask<...>の一つめがStringな理由はURIをStringで指定するからです。
-                val url = URL(params[0])
-                connection = url.openConnection() as HttpURLConnection
-                connection.connect()  //ここで指定したAPIを叩いてみてます。
-
-                //ここから叩いたAPIから帰ってきたデータを使えるよう処理していきます。
-
-                //とりあえず取得した文字をbufferに。
-                val stream = connection.inputStream
-                reader = BufferedReader(InputStreamReader(stream))
-                buffer = StringBuffer()
-                var line: String?
-                while (true) {
-                    line = reader.readLine()
-                    if (line == null) {
-                        break
-                    }
-                    buffer.append(line)
-                    //Log.d("CHECK", buffer.toString())
-                }
-
-                //ここからは、今回はJSONなので、いわゆるJsonをParseする作業（Jsonの中の一つ一つのデータを取るような感じ）をしていきます。
-
-                //先ほどbufferに入れた、取得した文字列
-                val jsonText = buffer.toString()
-
-                //JSONObjectを使って、まず全体のJSONObjectを取ります。
-                val parentJsonObj = JSONObject(jsonText)
-                //今回のJSONは配列になっているので（データは一つですが）、全体のJSONObjectから、getJSONArrayで配列"movies"を取ります。
-                val parentJsonArray = parentJsonObj.getJSONArray("movies")
-
-                //JSONArrayの中身を取ります。映画"Your Name"のデータは、配列"movies"の０番目のデータなので、
-                val detailJsonObj = parentJsonArray.getJSONObject(0)  //これもJSONObjectとして取得
-
-                //moviesの0番目のデータのtitle項目をStringで取ります。これで中身を取れました。
-                val movieName: String = detailJsonObj.getString("title")  // => Your Name.
-                //公開年を取りたい時も同じようにすれば良いです。
-                val year: Int = detailJsonObj.getInt("year")  // => 2016
-
-                //Stringでreturnしてあげましょう。
-                return "$movieName - $year"  // => Your Name. - 2016
-
-                //ここから下は、接続エラーとかJSONのエラーとかで失敗した時にエラーを処理する為のものです。
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-            //finallyで接続を切断してあげましょう。
-            finally {
-                connection?.disconnect()
-                try {
-                    reader?.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-            //失敗した時はnullやエラーコードなどを返しましょう。
-            return null
-        }
-    }
-
-    //返ってきたデータをビューに反映させる処理はonPostExecuteに書きます。これはメインスレッドです。
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-        if(result == null) return
-
-        resultApiText.text = result
-    }
-
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            0 ->
-                // 戻りを受け取って何らか処理する
-                // resultCode は必ずゼロになるので、 RESULT_OK で判定しない
-//            println("SNS_SHARE")
-            println(resultCode)
-
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-        // 戻るでも入ってくるので注意
-        println(data)
-    }
-
 }
