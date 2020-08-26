@@ -10,11 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
-
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
