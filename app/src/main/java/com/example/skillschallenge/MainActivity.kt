@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         apiButton.setOnClickListener {
             resultApiText.text = ""
-            HitAPITask().execute("https://api.punkapi.com/v2/beers](https://api.punkapi.com/v2/beers")
+            HitAPITask().execute("https://api.punkapi.com/v2/beers")
         }
 
         button.setOnClickListener {
