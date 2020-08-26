@@ -2,6 +2,7 @@ package com.example.skillschallenge
 
 
 import android.content.Intent
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // ここからのエラーが解決できない状況です　2020/08/25
-    inner class HitAPITask: AsynkTask<String, String, String>(){
+    inner class HitAPITask: AsyncTask<String, String, String>(){
 
         override fun doInBackground(vararg params: String?): String? {
             //ここでAPIを叩きます。バックグラウンドで処理する内容です。
@@ -144,10 +145,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //返ってきたデータをビューに反映させる処理はonPostExecuteに書きます。これはメインスレッドです。
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-        if(result == null) return
+        //返ってきたデータをビューに反映させる処理はonPostExecuteに書きます。これはメインスレッドです。
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            if(result == null) return
 
         resultApiText.text = result
     }
