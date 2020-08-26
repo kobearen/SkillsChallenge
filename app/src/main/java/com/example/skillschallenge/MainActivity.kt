@@ -146,15 +146,16 @@ class MainActivity : AppCompatActivity() {
             //失敗した時はnullやエラーコードなどを返しましょう。
             return null
         }
-    }
 
         //返ってきたデータをビューに反映させる処理はonPostExecuteに書きます。これはメインスレッドです。
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             if(result == null) return
 
-        resultApiText.text = result
+            resultApiText.text = result
+        }
     }
+
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
