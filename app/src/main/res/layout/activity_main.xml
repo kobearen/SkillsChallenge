@@ -4,50 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/listView"
-        android:orientation="vertical"
+    <ImageView
+        android:id="@+id/menuImage"
+        android:layout_width="144dp"
+        android:layout_height="270dp"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/okasan" />
+
+    <TextView
+        android:id="@+id/menuText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
-        <TextView
-            android:id="@+id/resultApiText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="困!"
-            android:textSize="40sp" />
-        <Button
-            android:id="@+id/apiButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="API" />
-
-        <Button
-            android:id="@+id/readButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="READ" />
-
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SNS" />
-
-
-
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/menuImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:gravity="center_horizontal"/>
 
 
 

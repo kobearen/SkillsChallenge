@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/home_text"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/curry"
+        android:title="@string/curry_text" >
+        <menu >
+            <item
+                android:id="@+id/greencurry"
+                android:title="@string/greencurry_text" />
+            <item
+                android:id="@+id/katsucurry"
+                android:title="@string/katsucurry_text" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/pasta"
+        android:title="@string/pasta_text" />
+    <item
+        android:id="@+id/nabe"
+        android:title="@string/nabemono_text" >
+        <menu >
+            <item
+                android:id="@+id/oden"
+                android:title="@string/oden_text" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/other"
+        android:title="@string/other_text" />
+</menu>
