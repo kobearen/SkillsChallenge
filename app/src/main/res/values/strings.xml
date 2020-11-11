@@ -16,6 +16,8 @@
     <string name="osyanabe_text">少しおしゃれな鍋</string>
     <string name="other_text">その他</string>
     <string name="pasta_text">パスタ</string>
+    <string name="mail_text">メールする</string>
+    <string name="sms_text">SMSする</string>
 
 
 </resources>
