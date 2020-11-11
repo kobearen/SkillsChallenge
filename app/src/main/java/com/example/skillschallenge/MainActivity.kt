@@ -20,20 +20,25 @@ class MainActivity : AppCompatActivity() {
         // 長押しした時の挙動
         registerForContextMenu(menuImage)
     }
-    override fun onCreateContextMenu(menu:ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?){
-        super.onCreateContextMenu(menu,v,menuInfo)
-        if(menuText.text.isNotEmpty()){
-            menuInflater.inflate(R.menu.context,menu)
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        if (menuText.text.isNotEmpty()) {
+            menuInflater.inflate(R.menu.context, menu)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?):Boolean {
-        menuInflater.inflate(R.menu.main,menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?):Boolean{
-        when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
             R.id.home -> {
                 //───①
                 menuImage.setImageResource(R.drawable.okasan)
@@ -63,24 +68,24 @@ class MainActivity : AppCompatActivity() {
             R.id.mail -> {
                 val subject = getString(R.string.app_name)
                 val text = "${menuText.text}がたべたい！"
-                val uri = Uri.fromParts("mailto","kanehiro@gmail.com",null)
-                val intent = Intent(Intent.ACTION_SENDTO,uri)
-                intent.putExtra(Intent.EXTRA_SUBJECT,subject)
-                intent.putExtra(Intent.EXTRA_TEXT,text)
-                if(intent.resolveActivity(packageManager)!=null) {
+                val uri = Uri.fromParts("mailto", "kanehiro@gmail.com", null)
+                val intent = Intent(Intent.ACTION_SENDTO, uri)
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                intent.putExtra(Intent.EXTRA_TEXT, text)
+                if (intent.resolveActivity(packageManager) != null) {
                     startActivity(intent)
                 }
                 return true
             }
             R.id.sms -> {
-            val text = "${menuText.text}がたべたい！"
-            val uri = Uri.fromParts("smsto","99999999999",null)
-            val intent = Intent(Intent.ACTION_SENDTO,uri)
-            intent.putExtra("sms_body",text)
-            if(intent.resolveActivity(packageManager)!=null){
-                startActivity(intent)
-            }
-            return true
+                val text = "${menuText.text}がたべたい！"
+                val uri = Uri.fromParts("smsto", "99999999999", null)
+                val intent = Intent(Intent.ACTION_SENDTO, uri)
+                intent.putExtra("sms_body", text)
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
