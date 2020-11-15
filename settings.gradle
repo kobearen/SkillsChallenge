@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Skills Challenge'
+rootProject.name = "My Application"

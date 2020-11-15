@@ -1,23 +1,12 @@
 <resources>
-    <string name="app_name">Skills Challenge</string>
-    <string name="home_text">ホーム</string>
-    <string name="curry_text">カレー</string>
-    <string name="greencurry_text">グリーンカレー</string>
-    <string name="gyusujicurry_text">牛すじカレー</string>
-    <string name="tamoricurry_text">タモリカレー</string>
-    <string name="katsucurry_text">カツカレー</string>
-    <string name="ramen1_text">醤油ラーメン</string>
-    <string name="ramen2_text">酸辣湯麺</string>
-    <string name="nabeyaki_text">鍋焼きうどん</string>
-    <string name="umeudon_text">梅うどん</string>
-    <string name="hiyasityuka_text">冷やし中華</string>
-    <string name="nabemono_text">鍋物</string>
-    <string name="oden_text">おでん</string>
-    <string name="osyanabe_text">少しおしゃれな鍋</string>
-    <string name="other_text">その他</string>
-    <string name="pasta_text">パスタ</string>
-    <string name="mail_text">メールする</string>
-    <string name="sms_text">SMSする</string>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
-
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
