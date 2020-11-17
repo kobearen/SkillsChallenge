@@ -1,7 +1,10 @@
 package com.example.skillschallenge
 
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
@@ -18,8 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btn_network_error.setOnClickListener {
-            val dialog = SimpleDialogFragment()
-            dialog.show(supportFragmentManager, "simple")
+            // オフライン の時はダイアログ
+            if (!isOnline()){
+                val dialog = SimpleDialogFragment()
+                dialog.show(supportFragmentManager, "simple")
+            }
         }
 
         // webViewの練習
@@ -84,6 +90,12 @@ class MainActivity : AppCompatActivity() {
 //            builder.setType("text/plain")
 //            builder.startChooser()
         }
+    }
+    //
+    fun isOnline(): Boolean {
+        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return networkInfo?.isConnected == true
     }
 
     fun loadWebpage() {
