@@ -4,18 +4,11 @@ package com.example.skillschallenge
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
-
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
@@ -67,9 +60,6 @@ class MainActivity : AppCompatActivity() {
 
 
 //            startActivity(shareIntent)
-
-
-
 //            val builder = ShareCompat.IntentBuilder.from(this)
 //
 //            builder.setSubject("件名けんめいケンメイ")
@@ -115,6 +105,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
+
+
 // listViewの練習
 //        val arrayAdapter = ArrayAdapter<String>(this, R.layout.simple_list_item_1).apply {
 //            add("Android")
