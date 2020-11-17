@@ -1,13 +1,14 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import java.util.*
-
+import kotlinx.android.synthetic.main.activity_edit.*
 
 class EditActivity : AppCompatActivity() {
     private val tag = "BloodPressure"
@@ -19,7 +20,7 @@ class EditActivity : AppCompatActivity() {
 
         realm = Realm.getDefaultInstance()
 
-        saveBtn.setOnClickListener {
+        findViewById<Button>(R.id.saveBtn).setOnClickListener {
             var max: Long = 0
             var min: Long = 0
             var pulse: Long = 0
