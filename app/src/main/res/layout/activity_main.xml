@@ -40,7 +40,13 @@
 
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/btn_network_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/listView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/btn_network_error" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

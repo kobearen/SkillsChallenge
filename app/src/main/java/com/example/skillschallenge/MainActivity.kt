@@ -24,16 +24,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        btn_network_error.setOnClickListener {
+            val dialog = SimpleDialogFragment()
+            dialog.show(supportFragmentManager, "simple")
+        }
+
         // webViewの練習
-//        webView.loadUrl("hhttps://www.google.com/")
-
-//        loadWebpage()
-
+        // webView.loadUrl("hhttps://www.google.com/")
+        // loadWebpage()
         button.setOnClickListener {
-             // SharedPreferencesの練習
-//            sp.edit().putString("DataString", "sample")
-
-//            startActivity(share)
+        // SharedPreferencesの練習
+        // sp.edit().putString("DataString", "sample")
+        // startActivity(share)
         }
 
         readButton.setOnClickListener {
