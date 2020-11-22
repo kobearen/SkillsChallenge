@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,5 +26,10 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<BloodPress>): Recycle
         holder.minMaxText?.text = "${bloodPress?.max.toString()}/${bloodPress?.min.toString()}"
         holder.pulseText?.text = bloodPress?.pulse.toString()
         holder.itemView.setBackgroundColor(if (position % 2 == 0) Color.LTGRAY else Color.WHITE) //───②-1
+        holder.itemView.setOnClickListener{
+            val intent = Intent(it.context,EditActivity::class.java)
+            intent.putExtra("id",bloodPress?.id)
+            it.context.startActivity(intent)
+        }
     }
 }
