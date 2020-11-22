@@ -36,7 +36,7 @@ class EditActivity : AppCompatActivity() {
             realm.executeTransaction { // ───②
                 val maxId = realm.where<BloodPress>().max("id") //───②
                 val nextId = (maxId?.toLong() ?: 0L) + 1L //───②2
-                val bloodPress = realm.createObject<BloodPress>(nextId) //───②3
+                val bloodPress = realm.createObject<BloodPress>(nextId) //───②3モデルのインスタンスを作成
                 bloodPress.dateTime = Date()
                 bloodPress.max = max
                 bloodPress.min = min
@@ -45,7 +45,6 @@ class EditActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_SHORT).show() //───②4
             finish()
         }
-
     }
 
     override fun onDestroy() {
