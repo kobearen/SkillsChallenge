@@ -10,9 +10,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class
+MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    // MapsActivityクラスのコードでは、AppCompatActivityクラスを継承するだけではなく、OnMapReadyCallbackインターフェイスを実装しています
     private lateinit var mMap: GoogleMap
+    private val MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney)) // シドニーにカメラ
     }
 }

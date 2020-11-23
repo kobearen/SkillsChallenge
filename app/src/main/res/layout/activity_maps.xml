@@ -6,4 +6,24 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    tools:context=".MapsActivity"
+
+    map:cameraTargetLat="36.730028"
+    map:cameraTargetLng="137.014307"
+    map:cameraZoom="15.0"
+    map:cameraBearing="0.0"
+    map:cameraTilt="0.0"
+    map:mapType="normal"
+    map:uiCompass="true"
+    map:uiZoomControls="true"
+    map:uiZoomGestures="true"
+    map:uiRotateGestures="true"
+    map:uiScrollGestures="true"
+    map:uiTiltGestures="true"
+    />
+
+<!--    xmlns:map=-->
+<!--    fragment（フラグメント）にxmlns:map（①）-->
+<!--    android:name=-->
+<!--    xmlns:mapを指定すると、これから説明するMap要素を使うことができます。-->
+
