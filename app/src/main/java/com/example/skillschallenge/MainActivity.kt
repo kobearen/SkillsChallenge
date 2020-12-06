@@ -8,10 +8,11 @@ import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.lifecycle.Observer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
@@ -20,23 +21,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_network_error.setOnClickListener {
-            // オフライン の時はダイアログ
-            if (!isOnline()){
-                val dialog = SimpleDialogFragment()
-                dialog.show(supportFragmentManager, "simple")
+        val networkStateLiveData = NetworkStateLiveData(applicationContext)
+        networkStateLiveData.observe(this@MainActivity, Observer { networkState ->
+            if (!networkState) {
+                // ネットワークから切断した場合
+                println("ネットワークエラー")
+                offline()
             }
-        }
-
+        })
         // webViewの練習
         // webView.loadUrl("hhttps://www.google.com/")
         // loadWebpage()
-        button.setOnClickListener {
+        val mBtn = findViewById<Button>(R.id.button)
+        mBtn.setOnClickListener {
         // SharedPreferencesの練習
         // sp.edit().putString("DataString", "sample")
         // startActivity(share)
         }
 
+        val readButton = findViewById<Button>(R.id.readButton)
         readButton.setOnClickListener {
 //            var dataString = sp.getString("DataString", null)
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
+        val shareButton = findViewById<Button>(R.id.shareButton)
         shareButton.setOnClickListener {
 
             val sendIntent: Intent = Intent().apply {
@@ -93,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
     //
     fun isOnline(): Boolean {
-        val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connMgr = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
         return networkInfo?.isConnected == true
     }
@@ -115,6 +119,12 @@ class MainActivity : AppCompatActivity() {
         // 戻るでも入ってくるので注意
         println(data)
     }
+
+    fun offline(){ // オフライン の時はダイアログ
+        if (!isOnline()){
+            val dialog = SimpleDialogFragment()
+            dialog.show(supportFragmentManager, "simple")
+        }}
 
 }
 
