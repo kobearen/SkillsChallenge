@@ -30,6 +30,11 @@
             android:layout_height="wrap_content"
             android:text="SNS" />
 
+        <Button
+            android:id="@+id/btnSaveFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ファイルに書き出して保存" />
 
 
     </LinearLayout>

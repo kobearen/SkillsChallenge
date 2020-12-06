@@ -29,6 +29,13 @@ class MainActivity : AppCompatActivity() {
                 offline()
             }
         })
+
+        // ファイル書き出しと保存
+        val mbtnSaveFile = findViewById<Button>(R.id.btnSaveFile)
+        mbtnSaveFile.setOnClickListener {
+
+        }
+
         // webViewの練習
         // webView.loadUrl("hhttps://www.google.com/")
         // loadWebpage()
