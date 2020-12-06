@@ -7,12 +7,17 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.Observer
+import java.io.BufferedReader
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
@@ -29,6 +34,34 @@ class MainActivity : AppCompatActivity() {
                 offline()
             }
         })
+
+        // ファイル書き出しと保存
+        val mbtnSaveFile = findViewById<Button>(R.id.btnSaveFile)
+        mbtnSaveFile.setOnClickListener {
+                // Save file  // get string contents of EditText
+                val meditFileSave = findViewById<EditText>(R.id.editFileSave)
+                val contents = meditFileSave.text.toString()
+            val mtextView = findViewById<TextView>(R.id.textView)
+                if (contents.isNotEmpty()) {
+                    saveFile("fileName", contents)
+                    mtextView.text =  getString(R.string.saved)
+                } else {
+                    mtextView.text = getString(R.string.no_text)
+                }
+        }
+
+        // ファイル読み取り
+        val mbtnReadFile = findViewById<Button>(R.id.btnReadFile)
+        mbtnReadFile.setOnClickListener{
+            val str = readFiles("fileName")
+            val mtextView = findViewById<TextView>(R.id.textView)
+            if (str != null) {
+                mtextView.text = str
+            } else {
+                mtextView.text = getString(R.string.no_text)
+            }
+        }
+
         // webViewの練習
         // webView.loadUrl("hhttps://www.google.com/")
         // loadWebpage()
@@ -95,8 +128,34 @@ class MainActivity : AppCompatActivity() {
 //            builder.startChooser()
         }
     }
-    //
-    fun isOnline(): Boolean {
+
+    // ファイル保存時の挙動の中身
+    private fun saveFile(file: String, str: String) {
+
+        applicationContext.openFileOutput(file, Context.MODE_PRIVATE).use { // MODE_WORLD_READABLE	他のアプリから読み取り可 MODE_WORLD_WRITEABLE	他のアプリから書込み可能 MODE_PRIVATE	そのアプリ内でのみ使用可能
+            it.write(str.toByteArray())
+        }
+
+        //File(applicationContext.filesDir, file).writer().use {
+        //    it.write(str)
+        //}
+    }
+    private fun readFiles(file: String): String? {
+
+        // to check whether file exists or not
+        val readFile = File(applicationContext.filesDir, file)
+
+        if(!readFile.exists()){
+            Log.d("debug","No file exists")
+            return null
+        }
+        else{
+            return readFile.bufferedReader().use(BufferedReader::readText)
+        }
+    }
+
+    // オフライン時の挙動の中身
+    private fun isOnline(): Boolean {
         val connMgr = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
         return networkInfo?.isConnected == true
