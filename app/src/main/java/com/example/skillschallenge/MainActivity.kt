@@ -62,14 +62,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // webViewの練習
-        // webView.loadUrl("hhttps://www.google.com/")
-        // loadWebpage()
-        val mBtn = findViewById<Button>(R.id.button)
+        val mBtn = findViewById<Button>(R.id.btn_fragment)
         mBtn.setOnClickListener {
-        // SharedPreferencesの練習
-        // sp.edit().putString("DataString", "sample")
-        // startActivity(share)
+            val webViewFragment = WebViewFragment()
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.add(R.id.fragment_container, webViewFragment)
+            fragmentTransaction.commit()
+
+            // SharedPreferencesの練習
+            // sp.edit().putString("DataString", "sample")
+            // startActivity(share)
+            // webViewの練習
+            // webView.loadUrl("hhttps://www.google.com/")
+            // loadWebpage()
         }
 
         val readButton = findViewById<Button>(R.id.readButton)
