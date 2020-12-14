@@ -8,19 +8,15 @@ import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.webkit.WebView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,34 +32,28 @@ class MainActivity : AppCompatActivity() {
         })
 
         // ファイル書き出しと保存
-        val mbtnSaveFile = findViewById<Button>(R.id.btnSaveFile)
-        mbtnSaveFile.setOnClickListener {
+        btnSaveFile.setOnClickListener {
                 // Save file  // get string contents of EditText
-                val meditFileSave = findViewById<EditText>(R.id.editFileSave)
-                val contents = meditFileSave.text.toString()
-            val mtextView = findViewById<TextView>(R.id.textView)
+                val contents = editFileSave.text.toString()
                 if (contents.isNotEmpty()) {
                     saveFile("fileName", contents)
-                    mtextView.text =  getString(R.string.saved)
+                    textView.text =  getString(R.string.saved)
                 } else {
-                    mtextView.text = getString(R.string.no_text)
+                    textView.text = getString(R.string.no_text)
                 }
         }
 
         // ファイル読み取り
-        val mbtnReadFile = findViewById<Button>(R.id.btnReadFile)
-        mbtnReadFile.setOnClickListener{
+        btnReadFile.setOnClickListener{
             val str = readFiles("fileName")
-            val mtextView = findViewById<TextView>(R.id.textView)
             if (str != null) {
-                mtextView.text = str
+                textView.text = str
             } else {
-                mtextView.text = getString(R.string.no_text)
+                textView.text = getString(R.string.no_text)
             }
         }
 
-        val mBtn = findViewById<Button>(R.id.btn_fragment)
-        mBtn.setOnClickListener {
+        btn_fragment.setOnClickListener {
             val webViewFragment = WebViewFragment()
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.add(R.id.fragment_container, webViewFragment)
@@ -77,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             // loadWebpage()
         }
 
-        val readButton = findViewById<Button>(R.id.readButton)
         readButton.setOnClickListener {
 //            var dataString = sp.getString("DataString", null)
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
@@ -88,7 +77,6 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        val shareButton = findViewById<Button>(R.id.shareButton)
         shareButton.setOnClickListener {
 
             val sendIntent: Intent = Intent().apply {

@@ -30,13 +30,4 @@ class WebViewFragment : Fragment() {
         mWebView.loadUrl(NETWORK_ADDRESS)
         return v
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WebViewFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
 }
