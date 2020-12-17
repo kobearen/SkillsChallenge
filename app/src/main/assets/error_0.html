@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>エラー画面</title>
+    <meta name="description" content="エラー画面">
+
+    <!-- style -->
+    <link rel="stylesheet" href="destyle.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="error">
+<div class="wrap">
+
+
+    <!-- ====== header ====== -->
+    <header class="header">
+    </header>
+
+
+    <!-- ====== main ====== -->
+    <main class="main">
+
+
+        <!-- ====== error ====== -->
+        <section class="section--error">
+            <h1 class="error--tit">通信に失敗しました。</h1>
+        </section>
+
+
+        <!-- ====== reload ====== -->
+        <section class="section--reload">
+            <script>appJsInterface.connectOffline( "message" );</script>
+            <a class="btn--reload" href="">再度読み込み</a>
+            <a href="http://192.168.128.200:8080/#/connect_device/retry_attatch">aaaaaaa</a>
+        </section>
+
+
+    </main>
+
+
+</div><!-- wrap -->
+</body>
+</html>

@@ -31,8 +31,9 @@ class WebViewFragment : Fragment() {
         //webview内のJavaScriptを有効にする
         mWebView.settings.javaScriptEnabled = true
         mWebView.webViewClient = WebViewClient()
-        mWebView.addJavascriptInterface(this, "Android")
+        mWebView.addJavascriptInterface(this, "Android")//第１引数には@JavascriptInterfaceを書いてあるクラス名を書く
         mWebView.loadUrl(NETWORK_ADDRESS)
+        web_view.loadUrl("file:///android_asset/error_0.html")
         return v
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
