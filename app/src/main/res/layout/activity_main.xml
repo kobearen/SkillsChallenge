@@ -64,6 +64,14 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_network_error"
         android:text="@string/btn_fragment" />
 
+    <Button
+        android:id="@+id/btn_shuffle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
+        app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
+        android:text="シャッフル" />
+
     <EditText
         android:id="@+id/editFileSave"
         android:layout_width="wrap_content"

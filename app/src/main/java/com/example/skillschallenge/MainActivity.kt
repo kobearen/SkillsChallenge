@@ -18,6 +18,9 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
+    private var lastId: String = "0"
+    var id: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -120,6 +123,26 @@ class MainActivity : AppCompatActivity() {
 //            builder.setType("text/plain")
 //            builder.startChooser()
         }
+
+        btn_shuffle.setOnClickListener {
+            var lastId :String = "3"
+            determineId(lastId)
+            lastId = id
+            println(lastId)
+        }
+    }
+    fun determineId(lastId: String) {
+
+        val list: MutableList<Int> = mutableListOf()
+        for(i in 1..6) {
+            if (i != lastId.toInt()) {
+                list.add(i)
+            }
+        }
+        // シャッフルして、順番を変える
+        list.shuffle()
+        println(list[0])
+        id = list[0].toString()
     }
 
     // ファイル保存時の挙動の中身
