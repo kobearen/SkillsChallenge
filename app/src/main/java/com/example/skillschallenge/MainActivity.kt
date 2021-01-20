@@ -56,9 +56,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // fragment
         btn_fragment.setOnClickListener {
             val webViewFragment = WebViewFragment()
+            val secondFragment = SecondFragment()
             val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.add(R.id.fragment_container, secondFragment)
             fragmentTransaction.add(R.id.fragment_container, webViewFragment)
             fragmentTransaction.commit()
 
