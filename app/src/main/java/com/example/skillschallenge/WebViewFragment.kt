@@ -1,5 +1,6 @@
 package com.example.skillschallenge
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.fragment_web_view.*
 
-const val NETWORK_ADDRESS ="https://tanukigolf.com/"
+const val NETWORK_ADDRESS ="https://kobearen.hatenablog.com/entry/task"
 const val NETWORK_ADDRESS_SECOND ="https://tanukigolf.com/post-342/"
 //const val NETWORK_ADDRESS = "http://192.168.128.200:8080/#/"
 
@@ -34,6 +35,28 @@ class WebViewFragment : Fragment() {
         mWebView.settings.javaScriptEnabled = true
         mWebView.webViewClient = WebViewClient()
         mWebView.addJavascriptInterface(this, "Android")//第１引数には@JavascriptInterfaceを書いてあるクラス名を書く
+
+
+        (activity as? MainActivity)?.let { activity ->
+            mWebView.settings.javaScriptEnabled = true
+            mWebView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    if (url == "https://kobearen.hatenablog.com/entry/task") {
+                        //URLが"/https://kobearen.hatenablog.com/entry/task
+                        activity.requestedOrientation =
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE // 横画面固定
+                        return true
+                    } else {
+                        activity.requestedOrientation =
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // 縦画面固定
+                    }
+                    return true
+                }
+            }
+        }
+        mWebView.setWebViewClient(WebViewClient())
+
+
         mWebView.loadUrl(NETWORK_ADDRESS)
 //        web_view.loadUrl("https://tanukigolf.com/")
         return v

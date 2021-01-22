@@ -35,4 +35,13 @@
         android:layout_marginLeft="100dp"
         android:text="REMOVESECOND" />
 
+    <Button
+        android:id="@+id/btn_add_scond_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="100dp"
+        android:layout_marginLeft="100dp"
+        android:text="ADDFRAGMENT" />
+
+
 </FrameLayout>
