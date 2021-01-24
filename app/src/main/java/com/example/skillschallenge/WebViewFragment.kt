@@ -54,10 +54,7 @@ class WebViewFragment : Fragment() {
                 }
             }
         }
-        mWebView.setWebViewClient(WebViewClient())
-
-
-        mWebView.loadUrl(NETWORK_ADDRESS)
+        mWebView.loadUrl("javascript:window.location.href='" + NETWORK_ADDRESS + "'")
 //        web_view.loadUrl("https://tanukigolf.com/")
         return v
     }
