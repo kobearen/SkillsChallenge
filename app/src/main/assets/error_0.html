@@ -35,9 +35,14 @@
 
         <!-- ====== reload ====== -->
         <section class="section--reload">
-            <script>appJsInterface.connectOffline( "message" );</script>
-            <a class="btn--reload" href="">再度読み込み</a>
-            <a href="http://192.168.128.200:8080/#/connect_device/retry_attatch">aaaaaaa</a>
+            <button class="btn--reload" type="button" onclick="MyFunction()">再度読み込み
+            </button>
+            <script>
+            function MyFunction() {
+            alert("abcdefg");
+            appJsInterface.connectOffline()
+            }
+            </script>
         </section>
 
 
