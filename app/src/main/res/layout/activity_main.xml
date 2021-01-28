@@ -8,100 +8,23 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/listView"
+
+    <Button
+        android:id="@+id/btnSaveFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ファイルに書き出して保存"
+        tools:ignore="MissingConstraints" />
+
+
+    <WebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/readButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="READ" />
-
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SNS" />
-
-        <Button
-            android:id="@+id/btnSaveFile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ファイルに書き出して保存" />
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnReadFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btn_network_error"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="ファイルから読み取り" />
-
-    <Button
-        android:id="@+id/btn_network_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/listView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/btn_network_error" />
-
-    <Button
-        android:id="@+id/btn_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/listView"
-        app:layout_constraintLeft_toRightOf="@+id/btn_network_error"
-        android:text="@string/btn_fragment" />
-
-    <Button
-        android:id="@+id/btn_shuffle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
-        app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
-        android:text="シャッフル" />
-
-    <EditText
-        android:id="@+id/editFileSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/app_name">
-    </EditText>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="TextView" />
-
-    <RelativeLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:orientation="horizontal">
-    </RelativeLayout>
+        app:layout_constraintRight_toRightOf="parent">
+    </WebView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
