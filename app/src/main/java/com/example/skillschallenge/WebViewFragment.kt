@@ -37,27 +37,24 @@ class WebViewFragment : Fragment() {
         mWebView.addJavascriptInterface(this, "Android")//第１引数には@JavascriptInterfaceを書いてあるクラス名を書く
 
 
-//        (activity as? MainActivity)?.let { activity ->
-//            mWebView.settings.javaScriptEnabled = true
-//            mWebView.webViewClient = object : WebViewClient() {
-//                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-//                    if (url == "https://kobearen.hatenablog.com/entry/task") {
-//                        //URLが"/https://kobearen.hatenablog.com/entry/task
-//                        activity.requestedOrientation =
-//                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE // 横画面固定
-//                        return true
-//                    } else {
-//                        activity.requestedOrientation =
-//                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // 縦画面固定
-//                    }
-//                    return true
-//                }
-//            }
-//        }
-//        mWebView.setWebViewClient(WebViewClient())
-
-
-        mWebView.loadUrl(NETWORK_ADDRESS)
+        (activity as? MainActivity)?.let { activity ->
+            mWebView.settings.javaScriptEnabled = true
+            mWebView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    if (url == "https://kobearen.hatenablog.com/entry/task") {
+                        //URLが"/https://kobearen.hatenablog.com/entry/task
+                        activity.requestedOrientation =
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE // 横画面固定
+                        return true
+                    } else {
+                        activity.requestedOrientation =
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT // 縦画面固定
+                    }
+                    return true
+                }
+            }
+        }
+        mWebView.loadUrl("javascript:window.location.href='" + NETWORK_ADDRESS + "'")
 //        web_view.loadUrl("https://tanukigolf.com/")
         return v
     }
