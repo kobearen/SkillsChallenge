@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/listView"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/btn_network_error" />
+        android:text="今実装なしボタン" />
 
     <Button
         android:id="@+id/btn_atm"
