@@ -3,12 +3,15 @@ package com.example.skillschallenge
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ShareCompat
 import androidx.lifecycle.Observer
@@ -36,18 +39,18 @@ class MainActivity : AppCompatActivity() {
 
         // ファイル書き出しと保存
         btnSaveFile.setOnClickListener {
-                // Save file  // get string contents of EditText
-                val contents = editFileSave.text.toString()
-                if (contents.isNotEmpty()) {
-                    saveFile("fileName", contents)
-                    textView.text =  getString(R.string.saved)
-                } else {
-                    textView.text = getString(R.string.no_text)
-                }
+            // Save file  // get string contents of EditText
+            val contents = editFileSave.text.toString()
+            if (contents.isNotEmpty()) {
+                saveFile("fileName", contents)
+                textView.text = getString(R.string.saved)
+            } else {
+                textView.text = getString(R.string.no_text)
+            }
         }
 
         // ファイル読み取り
-        btnReadFile.setOnClickListener{
+        btnReadFile.setOnClickListener {
             val str = readFiles("fileName")
             if (str != null) {
                 textView.text = str
@@ -56,8 +59,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // fragment
-        btn_fragment.setOnClickListener {
+        // atm webview
+        btn_atm.setOnClickListener {
             val webViewFragment = WebViewFragment()
             val secondFragment = SecondFragment()
             val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -75,11 +78,13 @@ class MainActivity : AppCompatActivity() {
 
         readButton.setOnClickListener {
 //            var dataString = sp.getString("DataString", null)
+            var dataString = "\"新規借入停止させていただきました。\n" +
+                    "普通預金へご入金をお願いします。"
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
-                .setTitle("タイトル")
-//                .setMessage(dataString)
-//                .setPositiveButton("OK", { dialog, which ->
-//                })
+                .setTitle("【重要】フリーローンご返済のお願い")
+                .setMessage(dataString)
+                .setPositiveButton("OK", { dialog, which ->
+                })
                 .show()
         }
 
@@ -95,7 +100,8 @@ class MainActivity : AppCompatActivity() {
             // URIに対する読み取り権限を付与する
             val SNS_SHARE: Intent = Intent()
             val builder = ShareCompat.IntentBuilder.from(this)
-            val intent = builder.createChooserIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            val intent =
+                builder.createChooserIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             if (intent.resolveActivity(packageManager) != null) {
                 ActivityCompat.startActivityForResult(this, sendIntent, 0, null)
             }
@@ -128,16 +134,47 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_shuffle.setOnClickListener {
-            var lastId :String = "3"
+            var lastId: String = "3"
             determineId(lastId)
             lastId = id
             println(lastId)
         }
+
+        btn_ipaddress.setOnClickListener {
+
+            distanceBetween()
+            // 東京駅〜大阪駅の距離　
+            var number = distanceBetween()[0]
+            var numbers = distanceBetween().toString()
+
+            println(number)
+            btn_ipaddress.text = distanceBetween().toString()
+            println("distanceBetween")
+
+        }
+
+
+        // Activity遷移
+        btnActivity.setOnClickListener {
+            val intent = Intent(this@MainActivity, SubActivity::class.java)
+            //生成したオブジェクトを引数に画面を起動！
+            startActivity(intent)
+        }
+
+        // Fragment遷移
+        btnFragment.setOnClickListener {
+            val secondFragment = SecondFragment()
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.add(R.id.fragment_container, secondFragment)
+            fragmentTransaction.commit()
+        }
+
     }
+
     fun determineId(lastId: String) {
 
         val list: MutableList<Int> = mutableListOf()
-        for(i in 1..6) {
+        for (i in 1..6) {
             if (i != lastId.toInt()) {
                 list.add(i)
             }
@@ -151,24 +188,25 @@ class MainActivity : AppCompatActivity() {
     // ファイル保存時の挙動の中身
     private fun saveFile(file: String, str: String) {
 
-        applicationContext.openFileOutput(file, Context.MODE_PRIVATE).use { // MODE_WORLD_READABLE	他のアプリから読み取り可 MODE_WORLD_WRITEABLE	他のアプリから書込み可能 MODE_PRIVATE	そのアプリ内でのみ使用可能
-            it.write(str.toByteArray())
-        }
+        applicationContext.openFileOutput(file, Context.MODE_PRIVATE)
+            .use { // MODE_WORLD_READABLE	他のアプリから読み取り可 MODE_WORLD_WRITEABLE	他のアプリから書込み可能 MODE_PRIVATE	そのアプリ内でのみ使用可能
+                it.write(str.toByteArray())
+            }
 
         //File(applicationContext.filesDir, file).writer().use {
         //    it.write(str)
         //}
     }
+
     private fun readFiles(file: String): String? {
 
         // to check whether file exists or not
         val readFile = File(applicationContext.filesDir, file)
 
-        if(!readFile.exists()){
-            Log.d("debug","No file exists")
+        if (!readFile.exists()) {
+            Log.d("debug", "No file exists")
             return null
-        }
-        else{
+        } else {
             return readFile.bufferedReader().use(BufferedReader::readText)
         }
     }
@@ -190,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                 // 戻りを受け取って何らか処理する
                 // resultCode は必ずゼロになるので、 RESULT_OK で判定しない
 //            println("SNS_SHARE")
-            println(resultCode)
+                println(resultCode)
 
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
@@ -198,14 +236,32 @@ class MainActivity : AppCompatActivity() {
         println(data)
     }
 
-    fun offline(){ // オフライン の時はダイアログ
-        if (!isOnline()){
+    fun offline() { // オフライン の時はダイアログ
+        if (!isOnline()) {
             val dialog = SimpleDialogFragment()
             dialog.show(supportFragmentManager, "simple")
-        }}
+        }
+    }
 
 }
 
+fun distanceBetween(): FloatArray {
+    var x: Double = 35.6809591
+    var y: Double = 139.7673068
+    var x2: Double = 34.7338219
+    var y2: Double = 135.5014056
+
+    // 東京駅　35.6809591 139.7673068
+    // 大阪駅　34.7338219 135.5014056
+    // セブン銀行東京駅一番街共同出張所　35.681591637257874, 139.7681923730127
+    // 東京都千代田区丸の内１丁目９−１35.68159226092651, 139.76896529034997
+
+    val results = FloatArray(3)
+
+    Location.distanceBetween(x, y, x2, y2, results)
+    return results
+
+}
 
 
 // listViewの練習

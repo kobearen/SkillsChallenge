@@ -11,8 +11,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.fragment_web_view.*
 
-const val NETWORK_ADDRESS ="https://kobearen.hatenablog.com/entry/task"
-const val NETWORK_ADDRESS_SECOND ="https://tanukigolf.com/post-342/"
+const val NETWORK_ADDRESS =
+    "https://pkg.navitime.co.jp/sevenbank/"  // https://kobearen.hatenablog.com/entry/task"
+const val NETWORK_ADDRESS_SECOND = "https://pkg.navitime.co.jp/sevenbank/"
 //const val NETWORK_ADDRESS = "http://192.168.128.200:8080/#/"
 
 //const val NETWORK_ADDRESS = "http://192.168.128.233:8081/#/confirm_email"
@@ -31,7 +32,7 @@ class WebViewFragment : Fragment() {
         WebView.setWebContentsDebuggingEnabled(true)
         val v: View = inflater.inflate(R.layout.fragment_web_view, container, false)
         val mWebView = v.findViewById<View>(R.id.web_view) as WebView
-        //webview内のJavaScriptを有効にする
+        // WebView内のJavaScriptを有効にする
         mWebView.settings.javaScriptEnabled = true
         mWebView.webViewClient = WebViewClient()
         mWebView.addJavascriptInterface(this, "Android")//第１引数には@JavascriptInterfaceを書いてあるクラス名を書く
@@ -55,7 +56,7 @@ class WebViewFragment : Fragment() {
             }
         }
         mWebView.loadUrl("javascript:window.location.href='" + NETWORK_ADDRESS + "'")
-//        web_view.loadUrl("https://tanukigolf.com/")
+        // web_view.loadUrl("https://tanukigolf.com/")
         return v
     }
 

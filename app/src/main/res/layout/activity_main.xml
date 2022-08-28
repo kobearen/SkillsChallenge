@@ -39,6 +39,24 @@
 
 
     </LinearLayout>
+    <Button
+        android:id="@+id/btnActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnReadFile"
+        app:layout_constraintLeft_toLeftOf="@id/btnReadFile"
+        android:layout_marginBottom="30dp"
+        android:text="Activity" />
+
+    <Button
+        android:id="@+id/btnFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnActivity"
+        app:layout_constraintLeft_toLeftOf="@id/btnActivity"
+        android:layout_marginBottom="30dp"
+        android:text="Fragment" />
+
 
     <Button
         android:id="@+id/btnReadFile"
@@ -57,7 +75,7 @@
         android:text="@string/btn_network_error" />
 
     <Button
-        android:id="@+id/btn_fragment"
+        android:id="@+id/btn_atm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/listView"
@@ -71,6 +89,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
         app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
         android:text="シャッフル" />
+
+    <Button
+        android:id="@+id/btn_ipaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
+        app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
+        android:text="IPアドレス" />
 
     <EditText
         android:id="@+id/editFileSave"
@@ -91,7 +117,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="TextView" />
+        android:text="" />
 
     <RelativeLayout
         android:id="@+id/fragment_container"
