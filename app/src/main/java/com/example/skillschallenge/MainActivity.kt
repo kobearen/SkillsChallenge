@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             // loadWebpage()
         }
 
-        readButton.setOnClickListener {
+        dialogButton.setOnClickListener {
 //            var dataString = sp.getString("DataString", null)
             var dataString = "\"新規借入停止させていただきました。\n" +
                     "普通預金へご入金をお願いします。"
