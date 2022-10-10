@@ -6,10 +6,9 @@ import android.content.Intent
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -74,6 +73,11 @@ class MainActivity : AppCompatActivity() {
             // webViewの練習
             // webView.loadUrl("hhttps://www.google.com/")
             // loadWebpage()
+        }
+
+        btnMapAPI.setOnClickListener {
+            val intent = Intent(this@MainActivity, MapActivity::class.java)
+            startActivity(intent)
         }
 
         dialogButton.setOnClickListener {

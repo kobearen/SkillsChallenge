@@ -49,6 +49,15 @@
         android:text="Activity" />
 
     <Button
+        android:id="@+id/btnMapAPI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnFragment"
+        app:layout_constraintLeft_toLeftOf="@id/btnActivity"
+        android:layout_marginBottom="30dp"
+        android:text="MapAPI" />
+
+    <Button
         android:id="@+id/btnFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,16 +95,16 @@
         android:id="@+id/btn_shuffle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
-        app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
         android:text="シャッフル" />
 
     <Button
         android:id="@+id/btn_ipaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_fragment"
-        app:layout_constraintLeft_toRightOf="@+id/btn_fragment"
+        app:layout_constraintTop_toBottomOf="@+id/btn_shuffle"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_shuffle"
         android:text="IPアドレス" />
 
     <EditText
